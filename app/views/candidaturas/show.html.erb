@@ -1,0 +1,47 @@
+<p>
+  <strong>Nome do Candidato:</strong>
+  <%= @candidatura.nome_candidato %>
+</p>
+
+<p>
+  <strong>Nome para Urna:</strong>
+  <%= @candidatura.nome_urna %>
+</p>
+
+<p>
+  <strong>Turma:</strong>
+  <%= @candidatura.turma.nome %>
+</p>
+
+<p>
+  <strong>Vice-líder:</strong>
+  <%= @candidatura.vice_lider %>
+</p>
+
+<p>
+  <strong>Nome para Urna do Vice:</strong>
+  <%= @candidatura.nome_urna_vice %>
+</p>
+
+<p>
+  <strong>Foto do Líder:</strong>
+  <% if @candidatura.foto_lider.attached? %>
+    <%= image_tag @candidatura.foto_lider, class: "img-thumbnail" %>
+  <% else %>
+    Não há foto.
+  <% end %>
+</p>
+
+<p>
+  <strong>Foto do Vice-líder:</strong>
+  <% if @candidatura.foto_vice.attached? %>
+    <%= image_tag @candidatura.foto_vice, class: "img-thumbnail" %>
+  <% else %>
+    Não há foto.
+  <% end %>
+</p>
+
+<!-- Link para editar a candidatura -->
+<p>
+  <%= link_to 'Editar Candidatura', edit_candidatura_path(@candidatura), class: 'btn btn-primary' %>
+</p>

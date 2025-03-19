@@ -1,0 +1,36 @@
+<div id="<%= dom_id candidatura %>">
+  <p>
+    <strong>Nome candidato:</strong>
+    <%= candidatura.nome_candidato %>
+  </p>
+
+  <p>
+    <strong>Nome urna:</strong>
+    <%= candidatura.nome_urna %>
+  </p>
+
+  <p>
+    <strong>Turma:</strong>
+    <%= candidatura.turma_id %>
+  </p>
+
+  <p>
+    <strong>Vice líder:</strong>
+    <%= candidatura.vice_lider %>
+  </p>
+
+  <p>
+    <strong>Nome urna vice:</strong>
+    <%= candidatura.nome_urna_vice %>
+  </p>
+
+  <p>
+    <strong>Foto líder:</strong>
+    <%= image_tag candidatura.foto_lider if candidatura.foto_lider.present? %>
+  </p>
+
+  <p>
+    <strong>Foto vice:</strong>
+    <%= image_tag candidatura.foto_vice if candidatura.foto_vice.present? %>
+  </p>
+</div>

@@ -1,0 +1,33 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+   : MyString
+  nome_candidato: MyString
+   : MyString
+  nome_urna: MyString
+   : MyString
+  turma: one
+   : MyString
+  vice_lider: MyString
+   : MyString
+  nome_urna_vice: MyString
+   : MyString
+  foto_lider: MyString
+   : MyString
+  foto_vice: MyString
+
+two:
+   : MyString
+  nome_candidato: MyString
+   : MyString
+  nome_urna: MyString
+   : MyString
+  turma: two
+   : MyString
+  vice_lider: MyString
+   : MyString
+  nome_urna_vice: MyString
+   : MyString
+  foto_lider: MyString
+   : MyString
+  foto_vice: MyString

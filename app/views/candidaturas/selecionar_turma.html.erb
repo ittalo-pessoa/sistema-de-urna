@@ -1,0 +1,15 @@
+<h2>Selecione a Turma</h2>
+<%= form_with url: urna_candidaturas_path, method: :get do %>
+  <select name="turma_id" class="w-full p-2 bg-gray-700 rounded-md">
+    <option value="">Selecione...</option>
+    <% @turmas.each do |turma| %>
+      <option value="<%= turma.id %>"><%= turma.nome %></option>
+    <% end %>
+  </select>
+  <br><br>
+  <button type="submit" class="p-2 bg-blue-600 text-white rounded-md">Continuar</button>
+<% end %>
+
+<% if flash[:alert] %>
+  <p class="text-red-500"><%= flash[:alert] %></p>
+<% end %>
