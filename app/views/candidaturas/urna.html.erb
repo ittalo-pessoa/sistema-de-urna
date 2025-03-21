@@ -4,57 +4,30 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <meta charset="UTF-8">
   <title>Urna Eletrônica</title>
-  <!-- Bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <style>
-    .urna-container {
-      max-width: 480px;
-      margin: 20px auto;
-      background-color: #343a40;
-      color: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    .foto-candidato {
-      width: 143px;
-      height: 170px;
-      border-radius: 4px;
-    }
-    .btn-branco {
-      background-color: white;
-      color: black;
-    }
-    .btn-corrigir {
-      background-color: orange;
-      color: white;
-    }
-    .botoes-finais {
-      display: flex;
-      justify-content: space-between;
-    }
-    #confirmar-container {
-      margin-top: 10px;
-      display: none;
-    }
-    #mensagem-branco {
-      display: none;
-      margin-top: 10px;
-      background-color: #ffc107;
-      padding: 10px;
-      border-radius: 4px;
-    }
-  </style>
+  <%= stylesheet_link_tag "urna", "data-turbo-track": "reload" %>
+
 </head>
-<body class="bg-dark text-white">
+<body><br>
   <h2 class="text-center">Urna Eletrônica - Turma <%= @turma.nome %></h2>
-  <h3 class="text-center">Escolha sua opção</h3>
+  <mark class="text-center">
+  <h3 class="text-center pulse" style=" padding: 10px; border-radius: 8px;">
+    Escolha quem vai liderar a turma.
+  </h3>
+   <h3 class="text-center pulse" style=" padding: 10px; border-radius: 8px;">
+    Ao escolher seu candidato(a), confirme seu voto! ✅
+  </h3>
+</mark>
 
   <div class="urna-container">
     <div id="visualizacao" class="text-center mb-4">
-      <div id="foto-lider" class="text-center mb-2"></div>
-      <p id="nome-urna" class="font-weight-bold"></p>
-      <p id="nome-vice"></p>
+      <div class="candidato-info">
+        <div id="foto-lider"></div>
+        <div>
+          <p id="nome-urna" class="font-weight-bold"></p>
+          <p id="nome-vice"></p>
+        </div>
+      </div>
       <div id="mensagem-branco" class="text-center">Confirma voto em branco?</div>
     </div>
 
@@ -62,9 +35,9 @@
       <%= hidden_field_tag :candidatura_id, "", id: "candidatura_id" %>
       <%= hidden_field_tag :turma_id, @turma.id %>
 
-      <div class="d-flex flex-column justify-content-center">
+      <div class="candidatos-lista">
         <% @candidaturas.each do |candidato| %>
-          <button type="button" class="btn btn-outline-light m-1" onclick="selecionarCandidato('<%= candidato.id %>', '<%= candidato.nome_urna %>', '<%= candidato.nome_urna_vice %>', '<%= url_for(candidato.foto_lider) if candidato.foto_lider.attached? %>')">
+          <button type="button" class="btn btn-outline-light" onclick="selecionarCandidato('<%= candidato.id %>', '<%= candidato.nome_urna %>', '<%= candidato.nome_urna_vice %>', '<%= url_for(candidato.foto_lider) if candidato.foto_lider.attached? %>')">
             <%= candidato.nome_urna %>
             <% if candidato.nome_urna_vice.present? %>
               - <%= candidato.nome_urna_vice %>
@@ -77,26 +50,29 @@
         <button type="button" class="btn btn-branco btn-lg" onclick="votarBranco()">BRANCO</button>
         <button type="button" class="btn btn-corrigir btn-lg" onclick="corrigirVoto()">CORRIGIR</button>
         <div id="confirmar-container">
-          <button type="submit" class="btn btn-success btn-lg" onclick="tocarSom(event)">CONFIRMAR</button>
+            <button type="submit" class="btn btn-success btn-lg w-100" onclick="tocarSom(event)">CONFIRMAR</button>
         </div>
       </div>
+
     <% end %>
   </div>
 
   <script>
-    let audio;
+    function exibirBotaoConfirmar() {
+        const confirmarContainer = document.getElementById("confirmar-container");
+        confirmarContainer.style.display = "block";
+    }
 
+    let audio;
     document.addEventListener('DOMContentLoaded', function() {
       audio = new Audio('/teste_.wav');
       audio.preload = 'auto';
       audio.load();
-      console.log('Áudio pré-carregado');
     });
 
     function verificarAudio() {
       if (audio.paused || audio.readyState < 3) {
         audio.load();
-        console.log('Recarregando o áudio.');
       }
     }
 
@@ -131,44 +107,21 @@
       document.getElementById('confirmar-container').style.display = 'none';
     }
 
-function tocarSom(e) {
-  e.preventDefault();
-  verificarAudio();
-
-  // Exibir o SweetAlert2 com o ícone de carregamento
-  Swal.fire({
-    title: 'Processando...',
-    html: 'Por favor, aguarde.',
-    allowOutsideClick: false,
-    showConfirmButton: false,
-    didOpen: () => {
-      Swal.showLoading();
+    function tocarSom(e) {
+      e.preventDefault();
+      verificarAudio();
+      Swal.fire({
+        title: 'Processando...',
+        html: 'Por favor, aguarde.',
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        didOpen: () => { Swal.showLoading(); }
+      });
+      audio.currentTime = 0;
+      audio.play().then(() => {
+        audio.onended = () => { Swal.close(); document.getElementById('form-voto').submit(); };
+      }).catch(() => { Swal.close(); document.getElementById('form-voto').submit(); });
     }
-  });
-
-  try {
-    audio.currentTime = 0;
-    audio.play().then(() => {
-      audio.onended = () => {
-        Swal.close(); // Fecha o Swal antes de enviar o formulário
-        document.getElementById('form-voto').submit();
-      };
-    }).catch(error => {
-      console.error('Erro ao tocar o som:', error);
-      Swal.close();
-      document.getElementById('form-voto').submit();
-    });
-  } catch (error) {
-    console.error('Erro ao tocar o som:', error);
-    Swal.close();
-    document.getElementById('form-voto').submit();
-  }
-}
-
   </script>
-
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

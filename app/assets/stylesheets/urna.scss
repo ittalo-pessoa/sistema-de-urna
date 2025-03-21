@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Bigelow+Rules&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=MedievalSharp&family=Nanum+Gothic+Coding&family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bigelow+Rules&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=MedievalSharp&family=Nanum+Gothic+Coding&family=Oswald:wght@200..700&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
+
+body {
+    background-color: white;
+    color: black;
+  }
+
+  h2{
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+  }
+
+  h3{
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style: normal;
+
+  }
+
+.mark{
+    padding: 0;
+    background-color: #ffc107;
+ }
+  .urna-container {
+    max-width: 720px;
+    margin: 20px auto;
+    background-color: #343a40;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  .foto-candidato {
+    width: 150px;
+    height: 180px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .btn-branco, .btn-corrigir, .btn-success {
+    width: 32%;
+    margin: 5px;
+    color: white;
+    font-weight: bold;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+  .btn-branco {
+    background-color: white;
+    color: black;
+  }
+  .btn-corrigir {
+    background-color: orange;
+  }
+  .btn-success {
+    background-color: green;
+  }
+  .btn-outline-light {
+    width: 100%;
+    margin: 5px 0;
+  }
+  .botoes-finais {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 15px;
+}
+ #confirmar-container {
+    display: none;
+    width: 32%;
+}
+  #mensagem-branco {
+    display: none;
+    margin-top: 10px;
+    background-color: #ffc107;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  .candidato-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  .candidatos-lista {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+  }
+
+  .pulse {
+    animation: pulseEffect 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulseEffect {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 0.8;
+    }
+  }
