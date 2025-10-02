@@ -5,7 +5,7 @@ gem 'rails', '~> 7.2.2', '>= 7.2.2.1'
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4', group: [:development, :test]
+gem 'sqlite3', '~> 2.7', group: [:development, :test]
 
 gem "bootstrap", "~> 5.3.3"
 
