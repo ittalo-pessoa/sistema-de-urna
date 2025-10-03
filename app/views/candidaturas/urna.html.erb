@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <%= javascript_include_tag "swal_only", "data-turbo-track": "reload", defer: true %>
   <meta charset="UTF-8">
   <title>Urna Eletrônica</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <%= stylesheet_link_tag "urna", "data-turbo-track": "reload" %>
+
+  <!-- CSS do SweetAlert2 -->
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+<!-- JS do SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 </head>
 <body><br>
@@ -58,6 +65,7 @@
   </div>
 
   <script>
+
     function exibirBotaoConfirmar() {
         const confirmarContainer = document.getElementById("confirmar-container");
         confirmarContainer.style.display = "block";
