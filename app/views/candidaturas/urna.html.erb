@@ -111,22 +111,40 @@
       document.getElementById('mensagem-branco').style.display = 'none';
       document.getElementById('confirmar-container').style.display = 'none';
     }
+ function tocarSom(e) {
+    e.preventDefault();
+    verificarAudio();
 
-    function tocarSom(e) {
-      e.preventDefault();
-      verificarAudio();
-      Swal.fire({
-        title: 'Processando...',
-        html: 'Por favor, aguarde.',
-        allowOutsideClick: false,
-        showConfirmButton: false,
-        didOpen: () => { Swal.showLoading(); }
-      });
-      audio.currentTime = 0;
-      audio.play().then(() => {
-        audio.onended = () => { Swal.close(); document.getElementById('form-voto').submit(); };
-      }).catch(() => { Swal.close(); document.getElementById('form-voto').submit(); });
-    }
+    Swal.fire({
+      title: 'Processando...',
+      html: 'Por favor, aguarde.',
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      didOpen: () => { Swal.showLoading(); }
+    });
+
+    audio.currentTime = 0;
+    audio.play().then(() => {
+      audio.onended = () => {
+        Swal.close();
+
+        // Mostra mensagem final
+        Swal.fire({
+          title: 'FIM',
+          html: '<h3>Voto computado com sucesso! ✅</h3>',
+          icon: 'success',
+          confirmButtonText: 'OK',
+          allowOutsideClick: false
+        }).then(() => {
+          // Só segue o fluxo após o eleitor clicar em OK
+          document.getElementById('form-voto').submit();
+        });
+      };
+    }).catch(() => {
+      Swal.close();
+      document.getElementById('form-voto').submit();
+    });
+  }
   </script>
 </body>
 </html>
