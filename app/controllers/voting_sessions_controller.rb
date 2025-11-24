@@ -11,6 +11,13 @@ class VotingSessionsController < ApplicationController
     @total_votos = @candidaturas.sum(:votos) + (@turma.votos_em_branco || 0)
   end
 
+  def resultados
+    @session = VotingSession.find(params[:id])
+    @turma = @session.turma
+    @candidaturas = @turma.candidaturas 
+    @total_votos = @candidaturas.sum(:votos) + (@turma.votos_em_branco || 0)
+  end
+
   def toggle_status
     @session = VotingSession.find(params[:id])
     
@@ -39,6 +46,24 @@ class VotingSessionsController < ApplicationController
         message: 'Erro ao atualizar sessão' 
       }, status: :unprocessable_entity
     end
+  end
+
+  def open_one
+    @session = VotingSession.find(params[:id])
+    @session.update(status: "open")
+
+    ActionCable.server.broadcast(
+        "UrnaChannel",
+        {
+          action: "session_opened",
+          status: "open",
+          turma_id: @session.turma_id,
+          session_id: @session.id
+        }
+    )
+
+    redirect_to voting_session_path(@session), notice: "Sessão de voto criada com sucesso!"
+    
   end
 
   def open

@@ -13,13 +13,17 @@ Rails.application.routes.draw do
 
   resources :voting_sessions do
     member do
+      get 'resultados'
       patch :toggle_status
       patch :close
     end
   end
 
+  get "resultados", to: "voting_sessions#resultados"
+
   get "/mesario/selecionar_turma", to: "mesarios#selecionar_turma", as: :mesario_selecionar_turma
   post "voting_session/open", to: "voting_sessions#open", as: :open_voting_session
+  patch "voting_session/open_one/:id", to: "voting_sessions#open_one", as: :open_voting_open_one_session
 
 
   resources :turmas do
